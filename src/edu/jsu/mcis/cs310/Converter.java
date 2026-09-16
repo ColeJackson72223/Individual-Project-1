@@ -1,6 +1,7 @@
 package edu.jsu.mcis.cs310;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.List;
 import com.github.cliftonlabs.json_simple.*;
 import com.opencsv.*;
@@ -133,8 +134,20 @@ public class Converter {
         String result = ""; // default return value; replace later!
         
         try {
+            JsonObject json = Jsoner.deserialize(jsonString, new JsonObject());
             
-
+            JsonArray prodNums = (JsonArray)json.get("ProdNums");
+            JsonArray colHeadings = (JsonArray) json.get("ColHeadings");
+            JsonArray data = (JsonArray) json.get("Data");
+            
+            StringWriter copy = new StringWriter();
+            CSVWriter writer = new CSVWriter(copy);
+            
+            String[] headings = new String[colHeadings.size()];
+            for (int i = 0; i < colHeadings.size(); i++){
+                headings[i] = colHeadings.getString(i);
+            }
+            writer.writeNext(headings);
         }
         catch (Exception e) {
             e.printStackTrace();
