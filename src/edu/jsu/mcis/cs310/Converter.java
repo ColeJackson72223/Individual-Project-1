@@ -1,5 +1,7 @@
 package edu.jsu.mcis.cs310;
 
+import java.io.StringReader;
+import java.util.List;
 import com.github.cliftonlabs.json_simple.*;
 import com.opencsv.*;
 
@@ -78,8 +80,44 @@ public class Converter {
         
         try {
         
-            // INSERT YOUR CODE HERE
+            CSVReader reader = new CSVReader(new StringReader(csvString));
+            List<String[]> csv = reader.readAll();
             
+            String[] headings = csv.get(0);
+            
+            JsonArray prodNums = new JsonArray();
+            JsonArray colHeadings = new JsonArray();
+            JsonArray data = new JsonArray();
+            
+            for (String heading : headings){
+                colHeadings.add(heading);
+            }
+            
+            for (int i = 1; i < csv.size(); i++){
+                String[] row = csv.get(i);
+                
+                prodNums.add(row[0]);
+                
+                JsonArray dataLine = new JsonArray(); 
+                
+                dataLine.add(row[1]);
+                dataLine.add(Integer.parseInt(row[2]));
+                dataLine.add(Integer.parseInt(row[3]));
+                dataLine.add(row[4]);
+                dataLine.add(row[5]);
+                dataLine.add(row[6]);
+                
+                data.add(dataLine);
+                
+            }
+            
+            JsonObject json = new JsonObject();
+            
+            json.put("ProdNums", prodNums);
+            json.put("ColHeadings", colHeadings);
+            json.put("Data", data);
+            
+            result = Jsoner.serialize(json);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -96,8 +134,7 @@ public class Converter {
         
         try {
             
-            // INSERT YOUR CODE HERE
-            
+
         }
         catch (Exception e) {
             e.printStackTrace();
