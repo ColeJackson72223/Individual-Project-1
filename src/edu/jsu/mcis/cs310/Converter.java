@@ -150,11 +150,7 @@ public class Converter {
                 headings[i] = colHeadings.getString(i);
             }
             writer.writeNext(headings); // row?
-            
-            //StringWriter copy = new StringWriter();
-            //CSVWriter writer = new CSVWriter(copy);
-            //result = copytoString();
-            //close
+           
             
             // For data
             for (int i = 0; i < data.size(); i++){
@@ -167,11 +163,19 @@ public class Converter {
                 row[1] = dataLine.getString(0);
                 
                 row[2] = dataLine.get(1).toString();
-                // Doesn't work fix this?
+                // Doesn't work fix this? // find out how to get the 0 infront to match json
                 row[3] = String.format("%02d", dataLine.getInteger(2));
                 // Finish the rows
+                row[4] = dataLine.getString(3);
+                row[5] = dataLine.getString(4);
+                row[6] = dataLine.getString(5);
+              
+                writer.writeNext(row);
                 
-            }
+            }     
+            
+            result = copy.toString();
+            copy.close();
         }
         catch (Exception e) {
             e.printStackTrace();
