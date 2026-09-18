@@ -143,11 +143,35 @@ public class Converter {
             StringWriter copy = new StringWriter();
             CSVWriter writer = new CSVWriter(copy);
             
+            
+            //for headings or Col
             String[] headings = new String[colHeadings.size()];
             for (int i = 0; i < colHeadings.size(); i++){
                 headings[i] = colHeadings.getString(i);
             }
-            writer.writeNext(headings);
+            writer.writeNext(headings); // row?
+            
+            //StringWriter copy = new StringWriter();
+            //CSVWriter writer = new CSVWriter(copy);
+            //result = copytoString();
+            //close
+            
+            // For data
+            for (int i = 0; i < data.size(); i++){
+                JsonArray dataLine = (JsonArray) data.get(i);
+                
+                String[] row = new String[7];
+                
+                row[0] = prodNums.getString(i);
+                
+                row[1] = dataLine.getString(0);
+                
+                row[2] = dataLine.get(1).toString();
+                // Doesn't work fix this?
+                row[3] = String.format("%02d", dataLine.getInteger(2));
+                // Finish the rows
+                
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
