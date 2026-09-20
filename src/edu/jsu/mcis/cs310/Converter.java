@@ -163,8 +163,18 @@ public class Converter {
                 row[1] = dataLine.getString(0);
                 
                 row[2] = dataLine.get(1).toString();
-                // Doesn't work fix this? // find out how to get the 0 infront to match json
-                row[3] = String.format("%02d", dataLine.getInteger(2));
+                // Doesn't work / fix this? // Find out how to format This correctly
+                
+                row[3] = String.format("%02d", dataLine.getInteger(2)); // This looks better
+                
+                
+                /*int episode = dataLine.getInteger(2);
+                if(episode < 10) {                          This WOrks Also!
+                    row[3] = "0" + episode;
+                } else {
+                    row[3] = String.valueOf(episode);
+                }
+                */
                 // Finish the rows
                 row[4] = dataLine.getString(3);
                 row[5] = dataLine.getString(4);
